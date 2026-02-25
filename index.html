@@ -7,14 +7,17 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="card">
+    <main class="card" aria-live="polite">
       <h1>🐱 Cat Corner</h1>
       <p class="subtitle">A tiny webpage dedicated to our favorite furry friends.</p>
 
       <section class="cat-fact-box">
         <h2>Cat Fact of the Moment</h2>
-        <p id="cat-fact">Click the button for a cat fact!</p>
-        <button id="fact-btn" type="button">Show me a cat fact</button>
+        <p id="cat-fact">Press the button to load a fact from the cat-fact API.</p>
+        <div class="button-row">
+          <button id="fact-btn" type="button">Show me a cat fact</button>
+          <span id="status" class="status" aria-live="polite"></span>
+        </div>
       </section>
 
       <section class="cat-traits">

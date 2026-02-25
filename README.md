@@ -1,31 +1,37 @@
-# Cat Corner Web Page
+# Cat Corner
 
-A simple and friendly web page built with **HTML, CSS, and JavaScript**.
+Cat Corner is a static website built with plain HTML, CSS, and JavaScript. It shows a clean cat-themed layout and fetches a real-time cat fact from the [catfact.ninja API](https://catfact.ninja/fact) when you press the button.
 
 ## Features
 
-- Clean, centered cat-themed card layout
-- "Cat Fact of the Moment" section
-- Button that shows a random cat fact using JavaScript
-- Small list of reasons why cats are awesome
+- Responsive single-page cat-themed layout
+- Styled card UI with subtle gradients and spacing
+- "Cat Fact of the Moment" section powered by catfact.ninja
+- Graceful local fallback fact if the API cannot be reached
+- Status indicator for loading, success, and fallback states
 
-## Project Structure
+## Project structure
 
-- `index.html` — page structure and content
-- `styles.css` — visual styling and layout
-- `script.js` — interactive random cat fact button logic
+- `index.html` — Semantic page structure and UI sections
+- `styles.css` — Theme, layout, button, and status styling
+- `script.js` — Fetch logic, API handling, and fallback behavior
 
-## How to Run
+## Run locally
 
-1. Clone or download this project.
-2. Open `index.html` in your browser.
+Because this is a static site, you can open it directly in a browser:
 
-That’s it — no build steps or dependencies needed.
+1. Clone or download this repository.
+2. Open `index.html`.
 
-## Customization Ideas
+Or serve it with a local static server:
 
-- Add your own cat facts in `script.js`.
-- Replace text with cat images or GIFs.
-- Add dark mode with an extra CSS theme.
+```bash
+python3 -m http.server 8000
+```
 
-Enjoy the cats! 🐾
+Then open `http://localhost:8000`.
+
+## Notes
+
+- The site requests one fact per button click.
+- If the API request fails, a random local fact is shown so the page remains functional offline.
