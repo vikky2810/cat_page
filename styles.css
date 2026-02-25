@@ -4,6 +4,8 @@
   --text: #20233a;
   --accent: #5b6df6;
   --accent-dark: #4656ca;
+  --ok: #1f7a45;
+  --error: #a73030;
 }
 
 * {
@@ -15,17 +17,19 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #eef1ff, #f8f0ff);
-  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(circle at top, #f8f0ff, #eef1ff 55%);
+  font-family: Inter, Arial, Helvetica, sans-serif;
   color: var(--text);
+  padding: 1.25rem;
 }
 
 .card {
-  width: min(92vw, 700px);
+  width: min(92vw, 720px);
   background-color: var(--card);
-  border-radius: 16px;
-  padding: 2rem;
+  border-radius: 18px;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
   box-shadow: 0 12px 30px rgba(32, 35, 58, 0.12);
+  border: 1px solid #e8ebff;
 }
 
 h1,
@@ -33,9 +37,14 @@ h2 {
   margin-top: 0;
 }
 
+h1 {
+  font-size: clamp(1.8rem, 2.6vw, 2.2rem);
+}
+
 .subtitle {
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
+  color: #3a4066;
 }
 
 .cat-fact-box {
@@ -45,6 +54,18 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
+#cat-fact {
+  min-height: 3.25rem;
+  line-height: 1.45;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 #fact-btn {
   margin-top: 0.75rem;
   border: 0;
@@ -52,10 +73,42 @@ h2 {
   padding: 0.65rem 1rem;
   color: #fff;
   background-color: var(--accent);
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
 #fact-btn:hover {
   background-color: var(--accent-dark);
+}
+
+#fact-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.status {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.status.loading {
+  color: #3b4fc0;
+}
+
+.status.success {
+  color: var(--ok);
+}
+
+.status.error {
+  color: var(--error);
+}
+
+ul {
+  padding-left: 1.25rem;
+  margin-bottom: 0;
+}
+
+li + li {
+  margin-top: 0.45rem;
 }
