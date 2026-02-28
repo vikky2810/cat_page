@@ -1,35 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cat Corner</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="card" aria-live="polite">
-      <h1>🐱 Cat Corner</h1>
-      <p class="subtitle">A tiny webpage dedicated to our favorite furry friends.</p>
 
-      <section class="cat-fact-box">
-        <h2>Cat Fact of the Moment</h2>
-        <p id="cat-fact">Press the button to load a fact from the cat-fact API.</p>
-        <div class="button-row">
-          <button id="fact-btn" type="button">Show me a cat fact</button>
-          <span id="status" class="status" aria-live="polite"></span>
-        </div>
-      </section>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cat Hover Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
 
-      <section class="cat-traits">
-        <h2>Why cats are awesome</h2>
-        <ul>
-          <li>They are curious and playful.</li>
-          <li>They can be independent and affectionate.</li>
-          <li>Their purr can be super calming.</li>
-        </ul>
-      </section>
-    </main>
+<body>
+  <div class="img1">
+    <img src="images/cat111.gif" alt="Cat 1" class="image top">
+    <img src="images/cat112.gif" alt="Cat 2" class="image bottom">
+    <audio id="ackSound" src="assets/sound/ack.mp3" preload="auto"></audio>
+  </div>
+  <p id="clickMsg" style="position: fixed; bottom: 10px; right: 10px; font-size: 10px; color: #ccc; opacity: 0.5;">Click
+    once to enable audio</p>
+  <script src="script.js"></script>
+</body>
 
-    <script src="script.js"></script>
-  </body>
 </html>

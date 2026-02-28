@@ -1,55 +1,54 @@
-const factText = document.getElementById("cat-fact");
-const button = document.getElementById("fact-btn");
-const statusText = document.getElementById("status");
+const imgContainer = document.querySelector('.img1');
+const ackSound = document.getElementById('ackSound');
+const clickNotice = document.getElementById('clickMsg');
 
-const fallbackFacts = [
-  "Cats can rotate their ears 180 degrees.",
-  "A group of cats is called a clowder.",
-  "Cats sleep for around 12 to 16 hours a day.",
-  "Every cat's nose print is unique, like a fingerprint.",
-  "Cats use their whiskers to sense nearby objects and spaces."
-];
+let soundUnlocked = false;
 
-function setStatus(message = "", state = "") {
-  statusText.textContent = message;
-  statusText.className = `status ${state}`.trim();
+// Function to handle browser-required user interaction
+function unlockAudio() {
+  if (soundUnlocked) return;
+
+  ackSound.play().then(() => {
+    // Successfully played, now pause and reset
+    ackSound.pause();
+    ackSound.currentTime = 0;
+    soundUnlocked = true;
+    if (clickNotice) clickNotice.style.display = 'none';
+    console.log("Audio Unlocked Successfully");
+  }).catch(err => {
+    // If it fails, they need to click still
+    console.log("Still waiting for user interaction to unlock audio...");
+  });
 }
 
-function randomFallbackFact() {
-  const randomIndex = Math.floor(Math.random() * fallbackFacts.length);
-  return fallbackFacts[randomIndex];
-}
+// Any click unlocks audio for the whole session
+document.addEventListener('click', unlockAudio, { once: true });
 
-async function fetchCatFact() {
-  button.disabled = true;
-  setStatus("Loading a fresh cat fact…", "loading");
+// Robust Play Logic for Hover
+imgContainer.addEventListener('mouseenter', () => {
+  // Attempt playback
+  const playPromise = ackSound.play();
 
-  try {
-    const response = await fetch("https://catfact.ninja/fact", {
-      headers: {
-        Accept: "application/json"
-      }
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      // Success: Sound is playing
+      if (clickNotice) clickNotice.style.opacity = '0';
+    }).catch(error => {
+      // Fail: User hasn't interacted with document yet
+      console.warn('Click anywhere on the page once to enable audio hover.');
+      if (clickNotice) clickNotice.style.opacity = '1';
     });
-
-    if (!response.ok) {
-      throw new Error(`API request failed (${response.status})`);
-    }
-
-    const data = await response.json();
-
-    if (!data.fact) {
-      throw new Error("API response missing fact text");
-    }
-
-    factText.textContent = data.fact;
-    setStatus("Loaded from catfact.ninja ✅", "success");
-  } catch (error) {
-    factText.textContent = randomFallbackFact();
-    setStatus("API unavailable, showing a local backup fact.", "error");
-    console.error("Unable to fetch cat fact:", error);
-  } finally {
-    button.disabled = false;
   }
-}
+});
 
-button.addEventListener("click", fetchCatFact);
+// Robust Stop Logic for Hover
+imgContainer.addEventListener('mouseleave', () => {
+  // Only pause if the sound is NOT currently in a 'loading/playing' promise state
+  // to avoid the "play() request was interrupted by pause()" error.
+
+  // We can also just check if the player is actually playing
+  if (!ackSound.paused) {
+    ackSound.pause();
+    ackSound.currentTime = 0;
+  }
+});
